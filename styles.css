@@ -1,28 +1,68 @@
 /*write the css under your section*/
 /*Landing page*/
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    display:inline;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #3698d5;
 }
-li{
-    float: left;
 
+li {
+  float: left;
 }
+
 li a {
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #f7c353;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+.clearfix{
+  color: white;
+  font-size: 20px;
+  font-family: "Lucida Console", "Courier New", fantasy;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   
-  li a:hover {
-    background-color: #e52d2d;
-  }
+}
+.footer{
+  text-align: center;
+  left: 0;
+  right: 0;
+  position: fixed;
+  bottom: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background-color: aqua;
+  
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh; /* Set container height as needed */
+}
+body {
+  background-image: url('https://i.pinimg.com/originals/88/15/63/881563d6444b370fa4ceea0c3183bb4c.gif'); 
+  background-size: cover; 
+  background-repeat: no-repeat; 
+}
+
+
 
 
 
