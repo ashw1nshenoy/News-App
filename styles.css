@@ -1,17 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
-.logo{
+body{
+    background-color: whitesmoke;
+}
+.flex-col{
+    flex-direction: column;
+}
+.heading{
     font-family: 'Parisienne', cursive;
-    text-decoration: none;
     color: #a85ceb;
-    font-weight: bold;
-    font-size: larger;
+    font-size: 5rem;
+    font-weight: bolder;
 }
-.hover02 figure img {
-	width: 300px;
-	height: auto;
-	-webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
+.img-fluid{
+    border-radius: 1rem;
 }
-.hover02 figure:hover img {
-	width: 350px;
+.img-fluid:hover{
+   transform: scale(1.02);
+}
+.button{
+    height: 2.5rem;
+    width: 5rem;
+    color:#a85ceb;
+    background-color: white;
+    border-radius: 0.6rem;
+    border: 0.1rem solid #a85ceb;
+}
+.button a{
+    color: inherit;
+    text-decoration: none;
+}
+.button:hover{
+    background-color: #a85ceb;
+    color: white;
 }

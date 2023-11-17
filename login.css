@@ -1,4 +1,8 @@
-
+flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 h2 {
     font-weight: 300;
     text-align: center;
@@ -12,7 +16,7 @@ h2 {
   a:link,
   a:visited,
   a:active {
-    color: #3ca9e2;
+    color: #a85ceb;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
   }
@@ -23,7 +27,7 @@ h2 {
   a:visited:hover,
   a:active:focus,
   a:active:hover {
-    color: #329dd5;
+    color: #a85ceb;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
   }
@@ -70,7 +74,7 @@ h2 {
   }
   input[type="text"]:focus,
   input[type="password"]:focus {
-    border-color: #3ca9e2;
+    border-color: #a85ceb;
   }
   input[type="text"]:focus:invalid,
   input[type="password"]:focus:invalid {
@@ -120,7 +124,7 @@ h2 {
   input[type="submit"] {
     border: none;
     display: block;
-    background-color: #3ca9e2;
+    background-color:#a85ceb;
     color: #fff;
     font-weight: bold;
     text-transform: uppercase;
@@ -134,7 +138,7 @@ h2 {
     text-align: center;
   }
   input[type="submit"]:hover {
-    background-color: #329dd5;
+    background-color:#a85ceb;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
   }

@@ -15,7 +15,7 @@
     position: relative;
     max-width: 430px;
     width: 100%;
-    background: wheat;
+    background: white;
     padding: 34px;
     border-radius: 6px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
@@ -35,7 +35,7 @@
     height: 3px;
     width: 28px;
     border-radius: 12px;
-    background: #4070f4;
+    background: #a85ceb;
   }
   .wrapper form{
     margin-top: 30px;
@@ -59,7 +59,7 @@
   }
   .input-box input:focus,
   .input-box input:valid{
-    border-color: #4070f4;
+    border-color: #a85ceb;
   }
   form .policy{
     display: flex;
@@ -75,11 +75,11 @@
     color: #fff;
     letter-spacing: 1px;
     border: none;
-    background: #4070f4;
+    background: #a85ceb;
     cursor: pointer;
   }
   .input-box.button input:hover{
-    background: #0e4bf1;
+    background: #a85ceb;
   }
   form .text h3{
    color: #333;
@@ -87,7 +87,7 @@
    text-align: center;
   }
   form .text h3 a{
-    color: #4070f4;
+    color:#a85ceb;
     text-decoration: none;
   }
   form .text h3 a:hover{
