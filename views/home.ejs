@@ -11,23 +11,23 @@
 <body>
   <nav class="navbar sticky-top navbar-expand-lg border-bottom" style="background-color: #e3f2fd;">
     <div class="container-fluid">
-      <a class="nav-item px-4 logo" href="#">News App</a>
+      <a class="nav-item px-4 logo" href="/">News App</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" >
-          <button class="button" type="submit"><a href="">Search</a></button>
+        <form action="/search" method="POST" class="d-flex" >
+          <input class="form-control me-2" name="searched" type="search" placeholder="Search"  >
+          <input type="submit" type="button" value="Search" class="button">
         </form>
       </div>
     </div>
   </nav>
   <ul class="nav justify-content-center border-bottom">
     <li class="nav-item">
-      <a class="nav-link hover1" href="#">General
+      <a class="nav-link hover1" href="/">Trending
       </a>
     </li>
     <li class="nav-item">
@@ -41,9 +41,9 @@
         Others
       </a>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">1</a></li>
-        <li><a class="dropdown-item" href="#">2</a></li>
-        <li><a class="dropdown-item" href="#">3</a></li>
+        <li><a class="dropdown-item" href="/science">Science</a></li>
+        <li><a class="dropdown-item" href="/sports">Sports</a></li>
+        <li><a class="dropdown-item" href="/health">Health</a></li>
       </ul>
     </li>
   </ul>
@@ -51,55 +51,52 @@
     <div class="container">
       <div class="card">
         <div class="card__header">
-          <img src="<%= data.img %>" alt="card__image" class="card__image" width="600">
+          <img src="<%= data1.img %>" alt="card__image" class="card__image" width="600">
         </div>
         <div class="card__body">
-          <!-- <span class="tag tag-blue">Technology</span> -->
-          <h4><%= data.title %></h4>
-          <p><%= data.description %></p>
+          <h4><%= data1.title %></h4>
+          <p><%= data1.description %></p>
         </div>
         <div class="card__footer">
           <div class="user">
             <div class="user__info">
-              <h5><%=data.author%></h5>
-              <small><%= data.time %></small>
+              <h5><%=data1.author%></h5>
+              <small><%= data1.time %></small>
             </div>
           </div>
         </div>
       </div>
       <div class="card">
         <div class="card__header">
-          <img src="https://source.unsplash.com/600x400/?food" alt="card__image" class="card__image" width="600">
+          <img src="<%= data2.img %>" alt="card__image" class="card__image" width="600">
         </div>
         <div class="card__body">
-          <span class="tag tag-brown">Food</span>
-          <h4>Delicious Food</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+          <h4><%= data2.title %></h4>
+          <p><%= data2.description %></p>
         </div>
         <div class="card__footer">
           <div class="user">
             <div class="user__info">
-              <h5>Jony Doe</h5>
-              <small>Yesterday</small>
+              <h5><%= data2.author %></h5>
+              <small><%= data2.time %></small>
             </div>
           </div>
         </div>
       </div>
       <div class="card">
         <div class="card__header">
-          <img src="https://source.unsplash.com/600x400/?car,automobile" alt="card__image" class="card__image" width="600">
+          <img src="<%=data3.img%>" alt="card__image" class="card__image" width="600">
         </div>
         <div class="card__body">
-          <span class="tag tag-red">Automobile</span>
-          <h4>Race to your heart content</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+          <h4><%=data3.title%></h4>
+          <p><%=data3.description%></p>
         </div>
         
         <div class="card__footer">
           <div class="user">
             <div class="user__info">
-              <h5>John Doe</h5>
-              <small>2d ago</small>
+              <h5><%=data3.author%></h5>
+              <small><%=data3.time%></small>
             </div>
           </div>
         </div>
@@ -108,54 +105,51 @@
     <div class="container">
       <div class="card">
         <div class="card__header">
-          <img src="https://source.unsplash.com/600x400/?computer" alt="card__image" class="card__image" width="600">
+          <img src="<%=data4.img%>" alt="IMG" class="card__image" width="600">
         </div>
         <div class="card__body">
-          <span class="tag tag-blue">Technology</span>
-          <h4>What's new in 2022 Tech</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+          <h4><%=data4.title%></h4>
+          <p><%=data4.description%></p>
         </div>
         <div class="card__footer">
           <div class="user">
             <div class="user__info">
-              <h5>Jane Doe</h5>
-              <small>2h ago</small>
+              <h5><%=data4.author%></h5>
+              <small><%=data4.time%></small>
             </div>
           </div>
         </div>
       </div>
       <div class="card">
         <div class="card__header">
-          <img src="https://source.unsplash.com/600x400/?food" alt="card__image" class="card__image" width="600">
+          <img src="<%=data5.img%>" alt="card__image" class="card__image" width="600">
         </div>
         <div class="card__body">
-          <span class="tag tag-brown">Food</span>
-          <h4>Delicious Food</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+          <h4><%=data5.title%></h4>
+          <p><%=data5.description%></p>
         </div>
         <div class="card__footer">
           <div class="user">
             <div class="user__info">
-              <h5>Jony Doe</h5>
-              <small>Yesterday</small>
+              <h5><%=data5.author%></h5>
+              <small><%=data5.time%></small>
             </div>
           </div>
         </div>
       </div>
       <div class="card">
         <div class="card__header">
-          <img src="https://source.unsplash.com/600x400/?car,automobile" alt="card__image" class="card__image" width="600">
+          <img src="<%=data6.img%>" alt="card__image" class="card__image" width="600">
         </div>
         <div class="card__body">
-          <span class="tag tag-red">Automobile</span>
-          <h4>Race to your heart content</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+          <h4><%=data6.title%></h4>
+          <p><%=data6.description%></p>
         </div>
         <div class="card__footer">
           <div class="user">
             <div class="user__info">
-              <h5>John Doe</h5>
-              <small>2d ago</small>
+              <h5><%=data6.author%></h5>
+              <small><%=data6.time%></small>
             </div>
           </div>
         </div>

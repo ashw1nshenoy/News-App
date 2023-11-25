@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+.main-error-page {
+  min-height: 600px;
+  margin: 0px auto;
+  width: auto;
+  max-width: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+svg {
+  margin-bottom: 16px;
+}
+a{
+  color: inherit;
+}
+

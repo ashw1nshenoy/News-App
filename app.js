@@ -18,24 +18,51 @@ app.get('/', async (req, res) => {
     const apiUrl = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${apiKey}`;
 
     const response = await axios.get(apiUrl);
-    // console.log(response.data)
-    // const newsArticles = response.data.articles.map(article => ({
-    //   title: article.title,
-    //   description: article.description,
-    //   url: article.url,
-    //   urlToImage:article.urlToImage,
-    // }));
-    // res.json(response.data.articles.url)
     // Send the formatted news data as JSON
       // res.json(response.data.articles)
-      let data={
-       img:response.data.articles[2].urlToImage,
-        title:response.data.articles[2].title,
-        description:response.data.articles[2].description,
-        time:response.data.articles[2].publishedAt,
-        author:response.data.articles[2].author
+      let data1={
+       img:response.data.articles[0].urlToImage,
+        title:response.data.articles[0].title,
+        description:response.data.articles[0].description,
+        time:response.data.articles[0].publishedAt,
+        author:response.data.articles[0].author
       }
-      res.render('home',{data: data})
+      let data2={
+        img:response.data.articles[1].urlToImage,
+         title:response.data.articles[1].title,
+         description:response.data.articles[1].description,
+         time:response.data.articles[1].publishedAt,
+         author:response.data.articles[1].author
+       }
+       let data3={
+        img:response.data.articles[2].urlToImage,
+         title:response.data.articles[2].title,
+         description:response.data.articles[2].description,
+         time:response.data.articles[2].publishedAt,
+         author:response.data.articles[2].author
+       }
+       let data4={
+        img:response.data.articles[3].urlToImage,
+         title:response.data.articles[3].title,
+         description:response.data.articles[3].description,
+         time:response.data.articles[3].publishedAt,
+         author:response.data.articles[3].author
+       }
+       let data5={
+        img:response.data.articles[4].urlToImage,
+         title:response.data.articles[4].title,
+         description:response.data.articles[4].description,
+         time:response.data.articles[4].publishedAt,
+         author:response.data.articles[4].author
+       }
+       let data6={
+        img:response.data.articles[5].urlToImage,
+         title:response.data.articles[5].title,
+         description:response.data.articles[5].description,
+         time:response.data.articles[5].publishedAt,
+         author:response.data.articles[5].author
+       }
+      res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
       
    
   } catch (error) {
@@ -47,8 +74,51 @@ app.get('/technology',async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=technology&country=in&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
-  res.json(response.data.articles)
+  let data1={
+    img:response.data.articles[0].urlToImage,
+     title:response.data.articles[0].title,
+     description:response.data.articles[0].description,
+     time:response.data.articles[0].publishedAt,
+     author:response.data.articles[0].author
+   }
+   let data2={
+    img:response.data.articles[1].urlToImage,
+     title:response.data.articles[1].title,
+     description:response.data.articles[1].description,
+     time:response.data.articles[1].publishedAt,
+     author:response.data.articles[1].author
+   }
+   let data3={
+    img:response.data.articles[2].urlToImage,
+     title:response.data.articles[2].title,
+     description:response.data.articles[2].description,
+     time:response.data.articles[2].publishedAt,
+     author:response.data.articles[2].author
+   }
+   let data4={
+    img:response.data.articles[3].urlToImage,
+     title:response.data.articles[3].title,
+     description:response.data.articles[3].description,
+     time:response.data.articles[3].publishedAt,
+     author:response.data.articles[3].author
+   }
+   let data5={
+    img:response.data.articles[4].urlToImage,
+     title:response.data.articles[4].title,
+     description:response.data.articles[4].description,
+     time:response.data.articles[4].publishedAt,
+     author:response.data.articles[4].author
+   }
+   let data6={
+    img:response.data.articles[5].urlToImage,
+     title:response.data.articles[5].title,
+     description:response.data.articles[5].description,
+     time:response.data.articles[5].publishedAt,
+     author:response.data.articles[5].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
   }
+ 
   catch(error){
     console.error('Error fetching news:', error.message);
     res.status(500).send('Not fetched');
@@ -59,8 +129,51 @@ app.get('/business',async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=business&country=in&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
-  res.json(response.data.articles)
+  let data1={
+    img:response.data.articles[0].urlToImage,
+     title:response.data.articles[0].title,
+     description:response.data.articles[0].description,
+     time:response.data.articles[0].publishedAt,
+     author:response.data.articles[0].author
+   }
+   let data2={
+    img:response.data.articles[1].urlToImage,
+     title:response.data.articles[1].title,
+     description:response.data.articles[1].description,
+     time:response.data.articles[1].publishedAt,
+     author:response.data.articles[1].author
+   }
+   let data3={
+    img:response.data.articles[2].urlToImage,
+     title:response.data.articles[2].title,
+     description:response.data.articles[2].description,
+     time:response.data.articles[2].publishedAt,
+     author:response.data.articles[2].author
+   }
+   let data4={
+    img:response.data.articles[3].urlToImage,
+     title:response.data.articles[3].title,
+     description:response.data.articles[3].description,
+     time:response.data.articles[3].publishedAt,
+     author:response.data.articles[3].author
+   }
+   let data5={
+    img:response.data.articles[4].urlToImage,
+     title:response.data.articles[4].title,
+     description:response.data.articles[4].description,
+     time:response.data.articles[4].publishedAt,
+     author:response.data.articles[4].author
+   }
+   let data6={
+    img:response.data.articles[5].urlToImage,
+     title:response.data.articles[5].title,
+     description:response.data.articles[5].description,
+     time:response.data.articles[5].publishedAt,
+     author:response.data.articles[5].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
   }
+
   catch(error){
     console.error('Error fetching news:', error.message);
     res.status(500).send('Internal Server Error');
@@ -71,7 +184,49 @@ app.get('/science',async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=science&country=in&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
-  res.json(response.data.articles)
+  let data1={
+    img:response.data.articles[0].urlToImage,
+     title:response.data.articles[0].title,
+     description:response.data.articles[0].description,
+     time:response.data.articles[0].publishedAt,
+     author:response.data.articles[0].author
+   }
+   let data2={
+    img:response.data.articles[1].urlToImage,
+     title:response.data.articles[1].title,
+     description:response.data.articles[1].description,
+     time:response.data.articles[1].publishedAt,
+     author:response.data.articles[1].author
+   }
+   let data3={
+    img:response.data.articles[2].urlToImage,
+     title:response.data.articles[2].title,
+     description:response.data.articles[2].description,
+     time:response.data.articles[2].publishedAt,
+     author:response.data.articles[2].author
+   }
+   let data4={
+    img:response.data.articles[3].urlToImage,
+     title:response.data.articles[3].title,
+     description:response.data.articles[3].description,
+     time:response.data.articles[3].publishedAt,
+     author:response.data.articles[3].author
+   }
+   let data5={
+    img:response.data.articles[4].urlToImage,
+     title:response.data.articles[4].title,
+     description:response.data.articles[4].description,
+     time:response.data.articles[4].publishedAt,
+     author:response.data.articles[4].author
+   }
+   let data6={
+    img:response.data.articles[5].urlToImage,
+     title:response.data.articles[5].title,
+     description:response.data.articles[5].description,
+     time:response.data.articles[5].publishedAt,
+     author:response.data.articles[5].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
   }
   catch(error){
     console.error('Error fetching news:', error.message);
@@ -83,7 +238,49 @@ app.get('/sports',async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=sports&country=in&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
-  res.json(response.data.articles)
+  let data1={
+    img:response.data.articles[0].urlToImage,
+     title:response.data.articles[0].title,
+     description:response.data.articles[0].description,
+     time:response.data.articles[0].publishedAt,
+     author:response.data.articles[0].author
+   }
+   let data2={
+    img:response.data.articles[1].urlToImage,
+     title:response.data.articles[1].title,
+     description:response.data.articles[1].description,
+     time:response.data.articles[1].publishedAt,
+     author:response.data.articles[1].author
+   }
+   let data3={
+    img:response.data.articles[2].urlToImage,
+     title:response.data.articles[2].title,
+     description:response.data.articles[2].description,
+     time:response.data.articles[2].publishedAt,
+     author:response.data.articles[2].author
+   }
+   let data4={
+    img:response.data.articles[3].urlToImage,
+     title:response.data.articles[3].title,
+     description:response.data.articles[3].description,
+     time:response.data.articles[3].publishedAt,
+     author:response.data.articles[3].author
+   }
+   let data5={
+    img:response.data.articles[4].urlToImage,
+     title:response.data.articles[4].title,
+     description:response.data.articles[4].description,
+     time:response.data.articles[4].publishedAt,
+     author:response.data.articles[4].author
+   }
+   let data6={
+    img:response.data.articles[5].urlToImage,
+     title:response.data.articles[5].title,
+     description:response.data.articles[5].description,
+     time:response.data.articles[5].publishedAt,
+     author:response.data.articles[5].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
   }
   catch(error){
     console.error('Error fetching news:', error.message);
@@ -95,7 +292,49 @@ app.get('/health',async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=health&country=in&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
-  res.json(response.data.articles)
+  let data1={
+    img:response.data.articles[0].urlToImage,
+     title:response.data.articles[0].title,
+     description:response.data.articles[0].description,
+     time:response.data.articles[0].publishedAt,
+     author:response.data.articles[0].author
+   }
+   let data2={
+    img:response.data.articles[1].urlToImage,
+     title:response.data.articles[1].title,
+     description:response.data.articles[1].description,
+     time:response.data.articles[1].publishedAt,
+     author:response.data.articles[1].author
+   }
+   let data3={
+    img:response.data.articles[2].urlToImage,
+     title:response.data.articles[2].title,
+     description:response.data.articles[2].description,
+     time:response.data.articles[2].publishedAt,
+     author:response.data.articles[2].author
+   }
+   let data4={
+    img:response.data.articles[3].urlToImage,
+     title:response.data.articles[3].title,
+     description:response.data.articles[3].description,
+     time:response.data.articles[3].publishedAt,
+     author:response.data.articles[3].author
+   }
+   let data5={
+    img:response.data.articles[4].urlToImage,
+     title:response.data.articles[4].title,
+     description:response.data.articles[4].description,
+     time:response.data.articles[4].publishedAt,
+     author:response.data.articles[4].author
+   }
+   let data6={
+    img:response.data.articles[5].urlToImage,
+     title:response.data.articles[5].title,
+     description:response.data.articles[5].description,
+     time:response.data.articles[5].publishedAt,
+     author:response.data.articles[5].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
   }
   catch(error){
     console.error('Error fetching news:', error.message);
@@ -104,22 +343,22 @@ app.get('/health',async(req,res)=>{
 
 })
 app.post('/search',(req,res)=>{
-  console.log(req.body)
+  const body=req.body
+  console.log(body)
 })
-app.get('/search',async(req,res)=>{
-
-  try{
-    const apiUrl = `https://newsapi.org/v2/everything?q=${searched}&country=in&apiKey=${apiKey}`
-    const response = await axios.get(apiUrl)
-    res.json(response.data.articles)
-  }
-  catch(error){
-    console.error('Error fetching news:', error.message);
-    res.status(500).send('Internal Server Error');
-  }
-})
+// app.get('/search',async(req,res)=>{
+//   try{
+//     const apiUrl = `https://newsapi.org/v2/everything?q=${searched}&country=in&apiKey=${apiKey}`
+//     const response = await axios.get(apiUrl)
+//     res.json(response.data.articles)
+//   }
+//   catch(error){
+//     console.error('Error fetching news:', error.message);
+//     res.status(500).send('Internal Server Error');
+//   }
+// })
 app.all('*',(req,res)=>{
-  res.send('Err')
+  res.render('error')
 })
 app.listen(port,()=>{
     console.log(`Server Started at port ${port}`)
