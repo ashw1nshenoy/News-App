@@ -1,13 +1,16 @@
 const express=require('express')
 const axios = require('axios');
+const path=require('path')
 const bodyParser=require('body-parser')
 const app=express()
 const port=3000
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 const apiKey = '50db29f424a24bff9a17d8f8589dcba3';
-app.use(bodyParser.urlencoded({extended:true}))
-app.use(express.static('./imp'))
+// app.use(bodyParser.urlencoded({extended:true}))
+app.use(express.static('./public'))
 app.get('/hello',(req,res)=>{
-    res.send('news app')
+  res.send("testing")
 })
 //Test code to get the JSON of the News
 app.get('/', async (req, res) => {
@@ -24,8 +27,17 @@ app.get('/', async (req, res) => {
     // }));
     // res.json(response.data.articles.url)
     // Send the formatted news data as JSON
-      res.json(response.data.articles)
-    // res.render('home.ejs',newsArticles)
+      // res.json(response.data.articles)
+      let data={
+       img:response.data.articles[2].urlToImage,
+        title:response.data.articles[2].title,
+        description:response.data.articles[2].description,
+        time:response.data.articles[2].publishedAt,
+        author:response.data.articles[2].author
+      }
+      res.render('home',{data: data})
+      
+   
   } catch (error) {
     console.error('Error fetching news:', error.message);
     res.status(500).send('Internal Server Error');
@@ -39,7 +51,7 @@ app.get('/technology',async(req,res)=>{
   }
   catch(error){
     console.error('Error fetching news:', error.message);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send('Not fetched');
   }
 
 })
@@ -91,11 +103,9 @@ app.get('/health',async(req,res)=>{
   }
 
 })
-// app.post('/search',(req,res)=>{
-//   req.send('<input type="text" method="post" action="/search">')
-//   const searched=req.body
-//   console.log(searched)
-// })
+app.post('/search',(req,res)=>{
+  console.log(req.body)
+})
 app.get('/search',async(req,res)=>{
 
   try{
