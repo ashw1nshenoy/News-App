@@ -29,11 +29,24 @@
   border-radius: 0.6rem;
   border: 0.1rem solid #a85ceb;
 }
+.button1{
+  height: 2.5rem;
+  width: 5rem;
+  margin-left: 1rem;
+  color:#a85ceb;
+  background-color: inherit;
+  border-radius: 0.6rem;
+  border: 0.1rem solid #a85ceb;
+}
 .button a{
   color: inherit;
   text-decoration: none;
 }
 .button:hover{
+  background-color: #a85ceb;
+  color: white;
+}
+.button1:hover{
   background-color: #a85ceb;
   color: white;
 }
@@ -63,7 +76,10 @@ img {
 background: linear-gradient(to right, #FFFFFF, #ECE9E6);
 
 }
-
+a{
+  color: inherit;
+  text-decoration: none;
+}
 
 
 .card__body {

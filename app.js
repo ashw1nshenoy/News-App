@@ -81,22 +81,10 @@ app.post('/login',(req,res)=>{
             }
         });
     }
-//  const search=db.all('SELECT * FROM credentials WHERE username = ? AND password=?',[username,password])
-//  console.log(search)
-  // db.all(search,[username,password], (err)=>{
-  //   if(err){
-  //     return res.status(404).render('error')
-  //   }
-  //   else{
-     
-  //   if(search.length>0){
-  //     return res.status(200).redirect('/home')
-  //   }
-  //   else{
-  //     return res.status(404).render('error')
-  //   }
-  //   }
-  // })
+
+})
+app.post('/logout',(req,res)=>{
+  res.render('landing')
 })
 //Test code to get the JSON of the News
 app.get('/home', async (req, res) => {
