@@ -4,7 +4,10 @@ const path=require('path')
 const cors=require('cors')
 const sqlite3=require('sqlite3').verbose()
 const bodyParser=require('body-parser');
-const { url } = require('inspector');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+const flash = require('connect-flash');
 const app=express()
 const port=3000
 const apiKey = '50db29f424a24bff9a17d8f8589dcba3';
@@ -40,54 +43,75 @@ app.post('/register',(req,res)=>{
     }
     else {
       console.log('sucess')
+      return res.render('login');
     }
 
   })
 })
+// Use middleware for session
+app.use(
+  session({
+      secret: 'your-secret-key',
+      resave: false,
+      saveUninitialized: false,
+  })
+);
+app.use((req, res, next) => {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+  next();
+});
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+passport.use(
+  new LocalStrategy((username, password, done) => {
+      db.get('SELECT * FROM credentials WHERE username = ? AND password = ?', [username, password], (err, row) => {
+          if (!row) {
+              return done(null, false, { message: 'Incorrect username or password.' });
+          }
+
+          return done(null, row);
+      });
+  })
+);
+passport.serializeUser((user, done) => {
+  done(null, user.username);
+});
+
+passport.deserializeUser((username, done) => {
+  db.get('SELECT * FROM credentials WHERE username = ?', [username], (err, row) => {
+      done(err, row);
+  });
+});
 app.get('/login',(req,res)=>{
   res.render('login')
 })
-app.post('/login',(req,res)=>{
- const username=req.body.username
- const password=req.body.password
- console.log(username,password)
- if(username && password)
-    {
-        query = `
-        SELECT * FROM credentials 
-        WHERE username = "${username}"
-        `;
+app.post(
+  '/login',
+  passport.authenticate('local', {
+      successRedirect: '/home',
+      failureRedirect: '/login',
+      failureFlash: true,
+  })
+);
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
+app.get('/logout', (req, res) => {
+  req.logout(req.user, err => {
+    if(err) return next(err);
+    res.redirect('/');
+  });
+});
 
-        db.all(query, function(error, data){
-
-            if(data.length > 0)
-            {
-                for(var count = 0; count < data.length; count++)
-                {
-                    if(data[count].password == password)
-                    {
-
-                        return res.redirect("/home");
-                    }
-                    else
-                    {
-                       return res.send('Incorrect Password');
-                    }
-                }
-            }
-            else
-            {
-                return res.send('username wrong');
-            }
-        });
-    }
-
-})
-app.post('/logout',(req,res)=>{
-  res.render('landing')
-})
-//Test code to get the JSON of the News
-app.get('/home', async (req, res) => {
+app.get('/home',isAuthenticated, async (req, res) => {
+ 
   try {
     const apiUrl = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${apiKey}`;
 
@@ -142,7 +166,32 @@ app.get('/home', async (req, res) => {
          time:response.data.articles[5].publishedAt,
          author:response.data.articles[5].author
        }
-      res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
+       let data7={
+        url:response.data.articles[6].url,
+        img:response.data.articles[6].urlToImage,
+         title:response.data.articles[6].title,
+         description:response.data.articles[6].description,
+         time:response.data.articles[6].publishedAt,
+         author:response.data.articles[6].author
+       }
+       let data8={
+        url:response.data.articles[7].url,
+        img:response.data.articles[7].urlToImage,
+         title:response.data.articles[7].title,
+         description:response.data.articles[7].description,
+         time:response.data.articles[7].publishedAt,
+         author:response.data.articles[7].author
+       }
+       let data9={
+        url:response.data.articles[8].url,
+        img:response.data.articles[8].urlToImage,
+         title:response.data.articles[8].title,
+         description:response.data.articles[8].description,
+         time:response.data.articles[8].publishedAt,
+         author:response.data.articles[8].author
+       }
+       
+      res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6,data7:data7,data8:data8,data9:data9})
       
    
   } catch (error) {
@@ -202,7 +251,31 @@ app.get('/technology',async(req,res)=>{
      time:response.data.articles[5].publishedAt,
      author:response.data.articles[5].author
    }
-   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
+   let data7={
+    url:response.data.articles[6].url,
+    img:response.data.articles[6].urlToImage,
+     title:response.data.articles[6].title,
+     description:response.data.articles[6].description,
+     time:response.data.articles[6].publishedAt,
+     author:response.data.articles[6].author
+   }
+   let data8={
+    url:response.data.articles[7].url,
+    img:response.data.articles[7].urlToImage,
+     title:response.data.articles[7].title,
+     description:response.data.articles[7].description,
+     time:response.data.articles[7].publishedAt,
+     author:response.data.articles[7].author
+   }
+   let data9={
+    url:response.data.articles[8].url,
+    img:response.data.articles[8].urlToImage,
+     title:response.data.articles[8].title,
+     description:response.data.articles[8].description,
+     time:response.data.articles[8].publishedAt,
+     author:response.data.articles[8].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6,data7:data7,data8:data8,data9:data9})
   }
  
   catch(error){
@@ -263,9 +336,201 @@ app.get('/business',async(req,res)=>{
      time:response.data.articles[5].publishedAt,
      author:response.data.articles[5].author
    }
-   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
+   let data7={
+    url:response.data.articles[6].url,
+    img:response.data.articles[6].urlToImage,
+     title:response.data.articles[6].title,
+     description:response.data.articles[6].description,
+     time:response.data.articles[6].publishedAt,
+     author:response.data.articles[6].author
+   }
+   let data8={
+    url:response.data.articles[7].url,
+    img:response.data.articles[7].urlToImage,
+     title:response.data.articles[7].title,
+     description:response.data.articles[7].description,
+     time:response.data.articles[7].publishedAt,
+     author:response.data.articles[7].author
+   }
+   let data9={
+    url:response.data.articles[8].url,
+    img:response.data.articles[8].urlToImage,
+     title:response.data.articles[8].title,
+     description:response.data.articles[8].description,
+     time:response.data.articles[8].publishedAt,
+     author:response.data.articles[8].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6,data7:data7,data8:data8,data9:data9})
   }
 
+  catch(error){
+    console.error('Error fetching news:', error.message);
+    res.status(500).render('error')
+  }
+
+})
+app.get('/lifestyle',async(req,res)=>{
+  try{
+  const apiUrl = `https://newsapi.org/v2/everything?q=lifestyle&apiKey=${apiKey}`
+  const response = await axios.get(apiUrl)
+  let data1={
+    url:response.data.articles[0].url,
+    img:response.data.articles[0].urlToImage,
+     title:response.data.articles[0].title,
+     description:response.data.articles[0].description,
+     time:response.data.articles[0].publishedAt,
+     author:response.data.articles[0].author
+   }
+   let data2={
+    url:response.data.articles[1].url,
+    img:response.data.articles[1].urlToImage,
+     title:response.data.articles[1].title,
+     description:response.data.articles[1].description,
+     time:response.data.articles[1].publishedAt,
+     author:response.data.articles[1].author
+   }
+   let data3={
+    url:response.data.articles[2].url,
+    img:response.data.articles[2].urlToImage,
+     title:response.data.articles[2].title,
+     description:response.data.articles[2].description,
+     time:response.data.articles[2].publishedAt,
+     author:response.data.articles[2].author
+   }
+   let data4={
+    url:response.data.articles[3].url,
+    img:response.data.articles[3].urlToImage,
+     title:response.data.articles[3].title,
+     description:response.data.articles[3].description,
+     time:response.data.articles[3].publishedAt,
+     author:response.data.articles[3].author
+   }
+   let data5={
+    url:response.data.articles[4].url,
+    img:response.data.articles[4].urlToImage,
+     title:response.data.articles[4].title,
+     description:response.data.articles[4].description,
+     time:response.data.articles[4].publishedAt,
+     author:response.data.articles[4].author
+   }
+   let data6={
+    url:response.data.articles[5].url,
+    img:response.data.articles[5].urlToImage,
+     title:response.data.articles[5].title,
+     description:response.data.articles[5].description,
+     time:response.data.articles[5].publishedAt,
+     author:response.data.articles[5].author
+   }
+   let data7={
+    url:response.data.articles[6].url,
+    img:response.data.articles[6].urlToImage,
+     title:response.data.articles[6].title,
+     description:response.data.articles[6].description,
+     time:response.data.articles[6].publishedAt,
+     author:response.data.articles[6].author
+   }
+   let data8={
+    url:response.data.articles[7].url,
+    img:response.data.articles[7].urlToImage,
+     title:response.data.articles[7].title,
+     description:response.data.articles[7].description,
+     time:response.data.articles[7].publishedAt,
+     author:response.data.articles[7].author
+   }
+   let data9={
+    url:response.data.articles[8].url,
+    img:response.data.articles[8].urlToImage,
+     title:response.data.articles[8].title,
+     description:response.data.articles[8].description,
+     time:response.data.articles[8].publishedAt,
+     author:response.data.articles[8].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6,data7:data7,data8:data8,data9:data9})
+  }
+  catch(error){
+    console.error('Error fetching news:', error.message);
+    res.status(500).render('error')
+  }
+
+})
+app.get('/music',async(req,res)=>{
+  try{
+  const apiUrl = `https://newsapi.org/v2/everything?q=music&apiKey=${apiKey}`
+  const response = await axios.get(apiUrl)
+  let data1={
+    url:response.data.articles[0].url,
+    img:response.data.articles[0].urlToImage,
+     title:response.data.articles[0].title,
+     description:response.data.articles[0].description,
+     time:response.data.articles[0].publishedAt,
+     author:response.data.articles[0].author
+   }
+   let data2={
+    url:response.data.articles[1].url,
+    img:response.data.articles[1].urlToImage,
+     title:response.data.articles[1].title,
+     description:response.data.articles[1].description,
+     time:response.data.articles[1].publishedAt,
+     author:response.data.articles[1].author
+   }
+   let data3={
+    url:response.data.articles[2].url,
+    img:response.data.articles[2].urlToImage,
+     title:response.data.articles[2].title,
+     description:response.data.articles[2].description,
+     time:response.data.articles[2].publishedAt,
+     author:response.data.articles[2].author
+   }
+   let data4={
+    url:response.data.articles[3].url,
+    img:response.data.articles[3].urlToImage,
+     title:response.data.articles[3].title,
+     description:response.data.articles[3].description,
+     time:response.data.articles[3].publishedAt,
+     author:response.data.articles[3].author
+   }
+   let data5={
+    url:response.data.articles[4].url,
+    img:response.data.articles[4].urlToImage,
+     title:response.data.articles[4].title,
+     description:response.data.articles[4].description,
+     time:response.data.articles[4].publishedAt,
+     author:response.data.articles[4].author
+   }
+   let data6={
+    url:response.data.articles[5].url,
+    img:response.data.articles[5].urlToImage,
+     title:response.data.articles[5].title,
+     description:response.data.articles[5].description,
+     time:response.data.articles[5].publishedAt,
+     author:response.data.articles[5].author
+   }
+   let data7={
+    url:response.data.articles[6].url,
+    img:response.data.articles[6].urlToImage,
+     title:response.data.articles[6].title,
+     description:response.data.articles[6].description,
+     time:response.data.articles[6].publishedAt,
+     author:response.data.articles[6].author
+   }
+   let data8={
+    url:response.data.articles[7].url,
+    img:response.data.articles[7].urlToImage,
+     title:response.data.articles[7].title,
+     description:response.data.articles[7].description,
+     time:response.data.articles[7].publishedAt,
+     author:response.data.articles[7].author
+   }
+   let data9={
+    url:response.data.articles[8].url,
+    img:response.data.articles[8].urlToImage,
+     title:response.data.articles[8].title,
+     description:response.data.articles[8].description,
+     time:response.data.articles[8].publishedAt,
+     author:response.data.articles[8].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6,data7:data7,data8:data8,data9:data9})
+  }
   catch(error){
     console.error('Error fetching news:', error.message);
     res.status(500).render('error')
@@ -324,7 +589,115 @@ app.get('/science',async(req,res)=>{
      time:response.data.articles[5].publishedAt,
      author:response.data.articles[5].author
    }
-   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
+   let data7={
+    url:response.data.articles[6].url,
+    img:response.data.articles[6].urlToImage,
+     title:response.data.articles[6].title,
+     description:response.data.articles[6].description,
+     time:response.data.articles[6].publishedAt,
+     author:response.data.articles[6].author
+   }
+   let data8={
+    url:response.data.articles[7].url,
+    img:response.data.articles[7].urlToImage,
+     title:response.data.articles[7].title,
+     description:response.data.articles[7].description,
+     time:response.data.articles[7].publishedAt,
+     author:response.data.articles[7].author
+   }
+   let data9={
+    url:response.data.articles[8].url,
+    img:response.data.articles[8].urlToImage,
+     title:response.data.articles[8].title,
+     description:response.data.articles[8].description,
+     time:response.data.articles[8].publishedAt,
+     author:response.data.articles[8].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6,data7:data7,data8:data8,data9:data9})
+  }
+  catch(error){
+    console.error('Error fetching news:', error.message);
+    res.status(500).render('error')
+  }
+
+})
+app.get('/fashion',async(req,res)=>{
+  try{
+  const apiUrl = `https://newsapi.org/v2/everything?q=fashion&apiKey=${apiKey}`
+  const response = await axios.get(apiUrl)
+  let data1={
+    url:response.data.articles[0].url,
+    img:response.data.articles[0].urlToImage,
+     title:response.data.articles[0].title,
+     description:response.data.articles[0].description,
+     time:response.data.articles[0].publishedAt,
+     author:response.data.articles[0].author
+   }
+   let data2={
+    url:response.data.articles[1].url,
+    img:response.data.articles[1].urlToImage,
+     title:response.data.articles[1].title,
+     description:response.data.articles[1].description,
+     time:response.data.articles[1].publishedAt,
+     author:response.data.articles[1].author
+   }
+   let data3={
+    url:response.data.articles[2].url,
+    img:response.data.articles[2].urlToImage,
+     title:response.data.articles[2].title,
+     description:response.data.articles[2].description,
+     time:response.data.articles[2].publishedAt,
+     author:response.data.articles[2].author
+   }
+   let data4={
+    url:response.data.articles[3].url,
+    img:response.data.articles[3].urlToImage,
+     title:response.data.articles[3].title,
+     description:response.data.articles[3].description,
+     time:response.data.articles[3].publishedAt,
+     author:response.data.articles[3].author
+   }
+   let data5={
+    url:response.data.articles[4].url,
+    img:response.data.articles[4].urlToImage,
+     title:response.data.articles[4].title,
+     description:response.data.articles[4].description,
+     time:response.data.articles[4].publishedAt,
+     author:response.data.articles[4].author
+   }
+   let data6={
+    url:response.data.articles[5].url,
+    img:response.data.articles[5].urlToImage,
+     title:response.data.articles[5].title,
+     description:response.data.articles[5].description,
+     time:response.data.articles[5].publishedAt,
+     author:response.data.articles[5].author
+   }
+   let data7={
+    url:response.data.articles[6].url,
+    img:response.data.articles[6].urlToImage,
+     title:response.data.articles[6].title,
+     description:response.data.articles[6].description,
+     time:response.data.articles[6].publishedAt,
+     author:response.data.articles[6].author
+   }
+   let data8={
+    url:response.data.articles[7].url,
+    img:response.data.articles[7].urlToImage,
+     title:response.data.articles[7].title,
+     description:response.data.articles[7].description,
+     time:response.data.articles[7].publishedAt,
+     author:response.data.articles[7].author
+   }
+   let data9={
+    url:response.data.articles[8].url,
+    img:response.data.articles[8].urlToImage,
+     title:response.data.articles[8].title,
+     description:response.data.articles[8].description,
+     time:response.data.articles[8].publishedAt,
+     author:response.data.articles[8].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6,data7:data7,data8:data8,data9:data9})
   }
   catch(error){
     console.error('Error fetching news:', error.message);
@@ -384,7 +757,31 @@ app.get('/sports',async(req,res)=>{
      time:response.data.articles[5].publishedAt,
      author:response.data.articles[5].author
    }
-   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
+   let data7={
+    url:response.data.articles[6].url,
+    img:response.data.articles[6].urlToImage,
+     title:response.data.articles[6].title,
+     description:response.data.articles[6].description,
+     time:response.data.articles[6].publishedAt,
+     author:response.data.articles[6].author
+   }
+   let data8={
+    url:response.data.articles[7].url,
+    img:response.data.articles[7].urlToImage,
+     title:response.data.articles[7].title,
+     description:response.data.articles[7].description,
+     time:response.data.articles[7].publishedAt,
+     author:response.data.articles[7].author
+   }
+   let data9={
+    url:response.data.articles[8].url,
+    img:response.data.articles[8].urlToImage,
+     title:response.data.articles[8].title,
+     description:response.data.articles[8].description,
+     time:response.data.articles[8].publishedAt,
+     author:response.data.articles[8].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6,data7:data7,data8:data8,data9:data9})
   }
   catch(error){
     console.error('Error fetching news:', error.message);
@@ -444,7 +841,31 @@ app.get('/health',async(req,res)=>{
      time:response.data.articles[5].publishedAt,
      author:response.data.articles[5].author
    }
-   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
+   let data7={
+    url:response.data.articles[6].url,
+    img:response.data.articles[6].urlToImage,
+     title:response.data.articles[6].title,
+     description:response.data.articles[6].description,
+     time:response.data.articles[6].publishedAt,
+     author:response.data.articles[6].author
+   }
+   let data8={
+    url:response.data.articles[7].url,
+    img:response.data.articles[7].urlToImage,
+     title:response.data.articles[7].title,
+     description:response.data.articles[7].description,
+     time:response.data.articles[7].publishedAt,
+     author:response.data.articles[7].author
+   }
+   let data9={
+    url:response.data.articles[8].url,
+    img:response.data.articles[8].urlToImage,
+     title:response.data.articles[8].title,
+     description:response.data.articles[8].description,
+     time:response.data.articles[8].publishedAt,
+     author:response.data.articles[8].author
+   }
+   res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6,data7:data7,data8:data8,data9:data9})
   }
   catch(error){
     console.error('Error fetching news:', error.message);
@@ -507,13 +928,56 @@ app.post('/search',async(req,res)=>{
        time:response.data.articles[5].publishedAt,
        author:response.data.articles[5].author
      }
-     res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6})
+     let data7={
+      url:response.data.articles[6].url,
+      img:response.data.articles[6].urlToImage,
+       title:response.data.articles[6].title,
+       description:response.data.articles[6].description,
+       time:response.data.articles[6].publishedAt,
+       author:response.data.articles[6].author
+     }
+     let data8={
+      url:response.data.articles[7].url,
+      img:response.data.articles[7].urlToImage,
+       title:response.data.articles[7].title,
+       description:response.data.articles[7].description,
+       time:response.data.articles[7].publishedAt,
+       author:response.data.articles[7].author
+     }
+     let data9={
+      url:response.data.articles[8].url,
+      img:response.data.articles[8].urlToImage,
+       title:response.data.articles[8].title,
+       description:response.data.articles[8].description,
+       time:response.data.articles[8].publishedAt,
+       author:response.data.articles[8].author
+     }
+     res.render('home',{data1: data1,data2:data2,data3:data3,data4:data4,data5:data5,data6:data6,data7:data7,data8:data8,data9:data9})
     }
   catch(error){
     console.error('Error fetching news:', error.message);
     res.status(500).render('error')
   }
 })
+// app.get('/joke',async(req,res)=>{
+
+//   const options = {
+//   method: 'GET',
+//   url: 'https://world-of-jokes1.p.rapidapi.com/v1/jokes/random-joke',
+//   headers: {
+//     'X-RapidAPI-Key': '753f824751mshde7a9d7f884e815p1bd585jsn40a0ff25c78d',
+//     'X-RapidAPI-Host': 'world-of-jokes1.p.rapidapi.com'
+//   }
+// };
+
+// try {
+// 	const response = await axios.request(options);
+// 	console.log(response.data);
+//   res.send('Hello')
+// } catch (error) {
+// 	console.error(error);
+// }
+// })
 // app.get('/news/:id',async(req,res)=>{
 //   try{
 //     const searched=req.body.searched

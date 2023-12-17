@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </head>
 <body>
-  <nav class="navbar sticky-top navbar-expand-lg border-bottom" style="background-color: #e3f2fd;">
+  <nav class="navbar sticky-top navbar-expand-lg border-bottom" style="background-color: white;">
     <div class="container-fluid">
       <a class="nav-item px-4 logo" href="/home">News App</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,13 +22,12 @@
           <input class="form-control me-2" name="searched" type="search" placeholder="Search"  required>
           <input type="submit" type="button" value="Search" class="button">
         </form>
-        <form action="/logout" method="post">
-          <input type="submit" type="button" value="Logout" class="button1 me-2">
-        </form>
+       <a href="/logout">Logout</a>
+          <!-- <button type="submit" class="button1 me-2"><img src="../public/images/logout.png" alt=""></button> -->
       </div>
     </div>
   </nav>
-  <ul class="nav justify-content-center border-bottom">
+  <ul class="nav justify-content-center">
     <li class="nav-item">
       <a class="nav-link hover1" href="/home">Trending
       </a>
@@ -39,6 +38,12 @@
     <li class="nav-item">
       <a class="nav-link hover1" href="/business">Business</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link hover1" href="/lifestyle">Lifestyle</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link hover1" href="/music">Music</a>
+    </li>
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle hover1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Others
@@ -47,6 +52,7 @@
         <li><a class="dropdown-item" href="/science">Science</a></li>
         <li><a class="dropdown-item" href="/sports">Sports</a></li>
         <li><a class="dropdown-item" href="/health">Health</a></li>
+        <li><a class="dropdown-item" href="/fashion">Fashion</a></li>
       </ul>
     </li>
   </ul>
@@ -153,6 +159,59 @@
             <div class="user__info">
               <h5><%=data6.author%></h5>
               <small><%=data6.time%></small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class=" card " onclick="window.open('<%= data7.url %>')" target='_blank'">
+        <div class="card__header">
+          <img src="<%= data7.img %>" alt="card__image" class="card__image" width="600">
+        </div>
+        <div class="card__body">
+          <h4><%= data7.title %></h4>
+          <p><%= data7.description %></p>
+        </div>
+        <div class="card__footer">
+          <div class="user">
+            <div class="user__info">
+              <h5><%=data7.author%></h5>
+              <small><%= data7.time %></small>
+            </div>
+          </div>
+        </div>
+      </div>      
+      <div class=" card " onclick="window.open('<%= data8.url %>')" target='_blank'">
+        <div class="card__header">
+          <img src="<%= data8.img %>" alt="card__image" class="card__image" width="600">
+        </div>
+        <div class="card__body">
+          <h4><%= data8.title %></h4>
+          <p><%= data8.description %></p>
+        </div>
+        <div class="card__footer">
+          <div class="user">
+            <div class="user__info">
+              <h5><%=data8.author%></h5>
+              <small><%= data8.time %></small>
+            </div>
+          </div>
+        </div>
+      </div>      
+      <div class=" card " onclick="window.open('<%= data9.url %>')" target='_blank'">
+        <div class="card__header">
+          <img src="<%= data9.img %>" alt="card__image" class="card__image" width="600">
+        </div>
+        <div class="card__body">
+          <h4><%= data9.title %></h4>
+          <p><%= data9.description %></p>
+        </div>
+        <div class="card__footer">
+          <div class="user">
+            <div class="user__info">
+              <h5><%=data9.author%></h5>
+              <small><%= data9.time %></small>
             </div>
           </div>
         </div>
