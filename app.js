@@ -2,6 +2,7 @@ const express=require('express')
 const axios = require('axios');
 const path=require('path')
 const cors=require('cors')
+const bcrypt = require('bcrypt');
 const sqlite3=require('sqlite3').verbose()
 const bodyParser=require('body-parser');
 const passport = require('passport');
@@ -10,6 +11,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const app=express()
 const port=3000
+const saltRounds=10
 const apiKey = '50db29f424a24bff9a17d8f8589dcba3';
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -34,10 +36,12 @@ app.get('/register',(req,res)=>{
   res.render('signup')
 })
 app.post('/register',(req,res)=>{
+  
   const username=req.body.username
   const password=req.body.password
-  console.log(username,password)
-  db.all('INSERT INTO credentials (username,password) VALUES (?,?)',[username,password],(err)=>{
+  const hash = bcrypt.hashSync(password, saltRounds);
+  console.log(username,hash)
+  db.all('INSERT INTO credentials (username,password) VALUES (?,?)',[username,hash],(err)=>{
     if(err){
       throw err
     }
@@ -66,17 +70,40 @@ app.use((req, res, next) => {
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-passport.use(
-  new LocalStrategy((username, password, done) => {
-      db.get('SELECT * FROM credentials WHERE username = ? AND password = ?', [username, password], (err, row) => {
-          if (!row) {
-              return done(null, false, { message: 'Incorrect username or password.' });
-          }
 
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    db.get('SELECT * FROM credentials WHERE username = ?', [username], async (err, row) => {
+      if (err) {
+        console.error(err.message);
+        return done(err);
+      }
+      if (!row) {
+        console.log('User not found');
+        return done(null, false, { message: 'Incorrect username or password.' });
+      }
+
+      const hashedPassword = row.password;
+      console.log(hashedPassword)
+
+      try {
+        const passwordMatch = await bcrypt.compare(password, hashedPassword);
+
+        if (passwordMatch) {
+          console.log('Password is correct');
           return done(null, row);
-      });
+        } else {
+          console.log('Incorrect password');
+          return done(null, false, { message: 'Incorrect username or password.' });
+        }
+      } catch (compareError) {
+        console.error(compareError.message);
+        return done(compareError);
+      }
+    });
   })
 );
+
 passport.serializeUser((user, done) => {
   done(null, user.username);
 });
@@ -199,7 +226,7 @@ app.get('/home',isAuthenticated, async (req, res) => {
     res.status(500).render('error')
   }
 });
-app.get('/technology',async(req,res)=>{
+app.get('/technology',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=technology&country=in&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
@@ -284,7 +311,7 @@ app.get('/technology',async(req,res)=>{
   }
 
 })
-app.get('/business',async(req,res)=>{
+app.get('/business',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=business&country=in&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
@@ -369,7 +396,7 @@ app.get('/business',async(req,res)=>{
   }
 
 })
-app.get('/lifestyle',async(req,res)=>{
+app.get('/lifestyle',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/everything?q=lifestyle&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
@@ -537,7 +564,7 @@ app.get('/music',async(req,res)=>{
   }
 
 })
-app.get('/science',async(req,res)=>{
+app.get('/science',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=science&country=in&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
@@ -621,7 +648,7 @@ app.get('/science',async(req,res)=>{
   }
 
 })
-app.get('/fashion',async(req,res)=>{
+app.get('/fashion',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/everything?q=fashion&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
@@ -705,7 +732,7 @@ app.get('/fashion',async(req,res)=>{
   }
 
 })
-app.get('/sports',async(req,res)=>{
+app.get('/sports',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=sports&country=in&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
@@ -789,7 +816,7 @@ app.get('/sports',async(req,res)=>{
   }
 
 })
-app.get('/health',async(req,res)=>{
+app.get('/health',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=health&country=in&apiKey=${apiKey}`
   const response = await axios.get(apiUrl)
@@ -873,7 +900,7 @@ app.get('/health',async(req,res)=>{
   }
 
 })
-app.post('/search',async(req,res)=>{
+app.post('/search',isAuthenticated,async(req,res)=>{
    try{
     const searched=req.body.searched
     console.log(searched)
