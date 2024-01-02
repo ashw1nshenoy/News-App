@@ -84,7 +84,7 @@ passport.use(
       }
 
       const hashedPassword = row.password;
-      console.log(hashedPassword)
+  
 
       try {
         const passwordMatch = await bcrypt.compare(password, hashedPassword);
