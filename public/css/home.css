@@ -65,10 +65,20 @@
   gap: 2rem;
 }
 
-img {
+.card__image {
   max-width: 100%;
   display: block;
   object-fit: cover;
+}
+.page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page img{
+  margin: 1rem;
+  height: 2.5rem;
+  width:2.5rem;
 }
 
 .card {
