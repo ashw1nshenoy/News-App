@@ -165,18 +165,7 @@ app.get('/home',isAuthenticated, async (req, res) => {
 app.get('/technology',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=technology&country=in&apiKey=${apiKey}`
-  const response = await axios.get(apiUrl);
-  // Send the formatted news data as JSON
-    // res.json(response.data.articles)
-    // let data={
-    //   url:response.data.articles.url,
-    //   img:response.data.articles.urlToImage,
-    //    title:response.data.articles.title,
-    //    description:response.data.articles.description,
-    //    time:response.data.articles.publishedAt,
-    //    author:response.data.articles.author
-    //  }
-     
+  const response = await axios.get(apiUrl);     
     res.render('home',{ data:response.data.articles})
     
  
@@ -189,18 +178,7 @@ app.get('/technology',isAuthenticated,async(req,res)=>{
 app.get('/business',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=business&country=in&apiKey=${apiKey}`
-  const response = await axios.get(apiUrl);
-  // Send the formatted news data as JSON
-    // res.json(response.data.articles)
-    // let data={
-    //   url:response.data.articles.url,
-    //   img:response.data.articles.urlToImage,
-    //    title:response.data.articles.title,
-    //    description:response.data.articles.description,
-    //    time:response.data.articles.publishedAt,
-    //    author:response.data.articles.author
-    //  }
-     
+  const response = await axios.get(apiUrl);     
     res.render('home',{ data:response.data.articles})
     
  
@@ -212,18 +190,7 @@ app.get('/business',isAuthenticated,async(req,res)=>{
 app.get('/lifestyle',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/everything?q=lifestyle&apiKey=${apiKey}`
-  const response = await axios.get(apiUrl);
-  // Send the formatted news data as JSON
-    // res.json(response.data.articles)
-    // let data={
-    //   url:response.data.articles.url,
-    //   img:response.data.articles.urlToImage,
-    //    title:response.data.articles.title,
-    //    description:response.data.articles.description,
-    //    time:response.data.articles.publishedAt,
-    //    author:response.data.articles.author
-    //  }
-     
+  const response = await axios.get(apiUrl);     
     res.render('home',{ data:response.data.articles})
     
  
@@ -235,18 +202,7 @@ app.get('/lifestyle',isAuthenticated,async(req,res)=>{
 app.get('/music',async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/everything?q=music&apiKey=${apiKey}`
-  const response = await axios.get(apiUrl);
-  // Send the formatted news data as JSON
-    // res.json(response.data.articles)
-    // let data={
-    //   url:response.data.articles.url,
-    //   img:response.data.articles.urlToImage,
-    //    title:response.data.articles.title,
-    //    description:response.data.articles.description,
-    //    time:response.data.articles.publishedAt,
-    //    author:response.data.articles.author
-    //  }
-     
+  const response = await axios.get(apiUrl);     
     res.render('home',{ data:response.data.articles})
     
  
@@ -259,18 +215,7 @@ app.get('/music',async(req,res)=>{
 app.get('/science',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=science&country=in&apiKey=${apiKey}`
-  const response = await axios.get(apiUrl);
-  // Send the formatted news data as JSON
-    // res.json(response.data.articles)
-    // let data={
-    //   url:response.data.articles.url,
-    //   img:response.data.articles.urlToImage,
-    //    title:response.data.articles.title,
-    //    description:response.data.articles.description,
-    //    time:response.data.articles.publishedAt,
-    //    author:response.data.articles.author
-    //  }
-     
+  const response = await axios.get(apiUrl);     
     res.render('home',{ data:response.data.articles})
     
  
@@ -284,17 +229,6 @@ app.get('/fashion',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/everything?q=fashion&apiKey=${apiKey}`
   const response = await axios.get(apiUrl);
-      // Send the formatted news data as JSON
-        // res.json(response.data.articles)
-        // let data={
-        //   url:response.data.articles.url,
-        //   img:response.data.articles.urlToImage,
-        //    title:response.data.articles.title,
-        //    description:response.data.articles.description,
-        //    time:response.data.articles.publishedAt,
-        //    author:response.data.articles.author
-        //  }
-         
         res.render('home',{ data:response.data.articles})
         
      
@@ -306,18 +240,7 @@ app.get('/fashion',isAuthenticated,async(req,res)=>{
 app.get('/sports',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=sports&country=in&apiKey=${apiKey}`
-  const response = await axios.get(apiUrl);
-  // Send the formatted news data as JSON
-    // res.json(response.data.articles)
-    // let data={
-    //   url:response.data.articles.url,
-    //   img:response.data.articles.urlToImage,
-    //    title:response.data.articles.title,
-    //    description:response.data.articles.description,
-    //    time:response.data.articles.publishedAt,
-    //    author:response.data.articles.author
-    //  }
-     
+  const response = await axios.get(apiUrl);    
     res.render('home',{ data:response.data.articles})
     
  
@@ -330,21 +253,8 @@ app.get('/sports',isAuthenticated,async(req,res)=>{
 app.get('/health',isAuthenticated,async(req,res)=>{
   try{
   const apiUrl = `https://newsapi.org/v2/top-headlines?category=health&country=in&apiKey=${apiKey}`
-  const response = await axios.get(apiUrl);
-  // Send the formatted news data as JSON
-    // res.json(response.data.articles)
-    // let data={
-    //   url:response.data.articles.url,
-    //   img:response.data.articles.urlToImage,
-    //    title:response.data.articles.title,
-    //    description:response.data.articles.description,
-    //    time:response.data.articles.publishedAt,
-    //    author:response.data.articles.author
-    //  }
-     
+  const response = await axios.get(apiUrl);     
     res.render('home',{ data:response.data.articles})
-    
- 
 } catch (error) {
   console.error('Error fetching news:', error.message);
   res.status(500).render('error')
@@ -356,18 +266,7 @@ app.post('/search',isAuthenticated,async(req,res)=>{
     console.log(searched)
     const apiUrl = `https://newsapi.org/v2/everything?q=${searched}&apiKey=${apiKey}`
     // console.log(apiUrl)
-    const response = await axios.get(apiUrl);
-    // Send the formatted news data as JSON
-      // res.json(response.data.articles)
-      // let data={
-      //   url:response.data.articles.url,
-      //   img:response.data.articles.urlToImage,
-      //    title:response.data.articles.title,
-      //    description:response.data.articles.description,
-      //    time:response.data.articles.publishedAt,
-      //    author:response.data.articles.author
-      //  }
-       
+    const response = await axios.get(apiUrl);       
       res.render('home',{ data:response.data.articles})
       
    
@@ -376,104 +275,6 @@ app.post('/search',isAuthenticated,async(req,res)=>{
     res.status(500).render('error')
   }
 })
-// app.get('/joke',async(req,res)=>{
-
-//   const options = {
-//   method: 'GET',
-//   url: 'https://world-of-jokes1.p.rapidapi.com/v1/jokes/random-joke',
-//   headers: {
-//     'X-RapidAPI-Key': '753f824751mshde7a9d7f884e815p1bd585jsn40a0ff25c78d',
-//     'X-RapidAPI-Host': 'world-of-jokes1.p.rapidapi.com'
-//   }
-// };
-
-// try {
-// 	const response = await axios.request(options);
-// 	console.log(response.data);
-//   res.send('Hello')
-// } catch (error) {
-// 	console.error(error);
-// }
-// })
-// app.get('/news/:id',async(req,res)=>{
-//   try{
-//     const searched=req.body.searched
-//     console.log(searched)
-//     const apiUrl = `https://newsapi.org/v2/everything?q=${searched}&apiKey=${apiKey}`
-//     // console.log(apiUrl)
-//     const response = await axios.get(apiUrl)
-//   console.log(req.params.id)
-//   const title='NEWS'
-//   if(req.params.id=='data1')
-//   {
-//     console.log('Hello data 1')
-//     var data={
-//       img:response.data.articles[0].urlToImage,
-//       title:response.data.articles[0].title,
-//       description:response.data.articles[0].description,
-//       time:response.data.articles[0].publishedAt,
-//       author:response.data.articles[0].author
-//     }
-    
-//   }
-//   else if(req.params.id=='data2'){
-//     var data={
-//       url:response.data.articles[1].url,
-//       img:response.data.articles[1].urlToImage,
-//       title:response.data.articles[1].title,
-//       description:response.data.articles[1].description,
-//       time:response.data.articles[1].publishedAt,
-//       author:response.data.articles[1].author,
-//       content:response.data.articles[1].content
-//     }
-//   }
-//   else if(req.params.id=='data3'){
-//     var data={
-//       img:response.data.articles[2].urlToImage,
-//       title:response.data.articles[2].title,
-//       description:response.data.articles[2].description,
-//       time:response.data.articles[2].publishedAt,
-//       author:response.data.articles[2].author,
-//       content:response.data.articles[2].content
-//     }
-//   }
-//   else if(req.params.id=='data4'){
-//     var data={
-//       img:response.data.articles[3].urlToImage,
-//       title:response.data.articles[3].title,
-//       description:response.data.articles[3].description,
-//       time:response.data.articles[3].publishedAt,
-//       author:response.data.articles[3].author,
-//       content:response.data.articles[3].content
-//     }
-//   }
-//   else if(req.params.id=='data5'){
-//     var data={
-//       img:response.data.articles[4].urlToImage,
-//       title:response.data.articles[4].title,
-//       description:response.data.articles[4].description,
-//       time:response.data.articles[4].publishedAt,
-//       author:response.data.articles[4].author,
-//       content:response.data.articles[4].content
-//     }
-//   }
-//   else if(req.params.id=='data6'){
-//     var data={
-//       img:response.data.articles[5].urlToImage,
-//       title:response.data.articles[5].title,
-//       description:response.data.articles[5].description,
-//       time:response.data.articles[5].publishedAt,
-//       author:response.data.articles[5].author,
-//       content:response.data.articles[5].content
-//     }
-//   }
-//   res.render('news',{title:title,data:data})
-// }
-// catch(error){
-//   console.error('Error fetching news:', error.message);
-//   res.status(500).render('error')
-// }
-// })
 app.all('*',(req,res)=>{
   res.render('error')
 })

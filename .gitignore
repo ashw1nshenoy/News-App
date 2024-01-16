@@ -1,3 +1,4 @@
 node_modules
 bootstrap.min.css
 package-lock.json
+credentials.db
